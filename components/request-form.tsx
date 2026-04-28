@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-type RequestStatus = "open" | "in_progress" | "done";
+import { normalizeRequestStatus, type RequestStatus } from "@/lib/request-status";
 
 type Props = {
   mode: "create" | "edit";
@@ -31,7 +31,7 @@ export default function RequestForm({ mode, request }: Props) {
       title: String(formData.get("title") ?? ""),
       description: String(formData.get("description") ?? ""),
       referenceImageUrl: String(formData.get("referenceImageUrl") ?? ""),
-      status: String(formData.get("status") ?? "open"),
+      status: normalizeRequestStatus(String(formData.get("status") ?? "pending")),
     };
 
     const endpoint = mode === "create" ? "/api/requests" : `/api/requests/${request?.id ?? ""}`;
@@ -127,12 +127,12 @@ export default function RequestForm({ mode, request }: Props) {
           <select
             id="status"
             name="status"
-            defaultValue={request?.status ?? "open"}
+            defaultValue={request?.status ?? "pending"}
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
           >
-            <option value="open">Open</option>
+            <option value="pending">Pending</option>
             <option value="in_progress">In Progress</option>
-            <option value="done">Done</option>
+            <option value="completed">Completed</option>
           </select>
         </div>
       </div>

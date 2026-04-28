@@ -13,8 +13,8 @@ const assetRequestSchema = new Schema(
     referenceImageUrl: { type: String, default: "" },
     status: {
       type: String,
-      enum: ["open", "in_progress", "done"],
-      default: "open",
+      enum: ["pending", "in_progress", "completed"],
+      default: "pending",
     },
   },
   { timestamps: true },

@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { apiError, firstZodError } from "@/lib/http";
+import { normalizeRequestStatus } from "@/lib/request-status";
 import { assetRequestSchema } from "@/lib/validation";
 import AssetRequest from "@/models/AssetRequest";
 
@@ -36,7 +37,7 @@ export async function PATCH(request: Request, context: RouteContext) {
         title: parsed.data.title,
         description: parsed.data.description,
         referenceImageUrl: parsed.data.referenceImageUrl ?? "",
-        status: parsed.data.status ?? "open",
+        status: normalizeRequestStatus(parsed.data.status ?? "pending"),
       },
       { new: true },
     );

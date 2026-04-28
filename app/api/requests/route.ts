@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import { apiError, firstZodError } from "@/lib/http";
+import { normalizeRequestStatus } from "@/lib/request-status";
 import { assetRequestSchema } from "@/lib/validation";
 import AssetRequest from "@/models/AssetRequest";
 
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
       title: parsed.data.title,
       description: parsed.data.description,
       referenceImageUrl: parsed.data.referenceImageUrl ?? "",
-      status: parsed.data.status ?? "open",
+      status: normalizeRequestStatus(parsed.data.status ?? "pending"),
     });
 
     return NextResponse.json({ request: created }, { status: 201 });

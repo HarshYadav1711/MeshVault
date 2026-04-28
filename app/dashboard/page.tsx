@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import AppShell from "@/components/app-shell";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
+import { formatStatusLabel } from "@/lib/format";
+import { normalizeRequestStatus } from "@/lib/request-status";
 import AssetRequest from "@/models/AssetRequest";
 
 export default async function DashboardPage() {
@@ -58,8 +60,8 @@ export default async function DashboardPage() {
                         {request.title}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 capitalize text-slate-700">
-                      {String(request.status).replace("_", " ")}
+                    <td className="px-4 py-3 text-slate-700">
+                      {formatStatusLabel(normalizeRequestStatus(String(request.status)))}
                     </td>
                     <td className="px-4 py-3 text-slate-700">
                       {new Date(request.updatedAt).toLocaleString()}

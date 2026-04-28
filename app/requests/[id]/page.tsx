@@ -5,6 +5,7 @@ import AppShell from "@/components/app-shell";
 import RequestForm from "@/components/request-form";
 import { getCurrentUser } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
+import { normalizeRequestStatus } from "@/lib/request-status";
 import AssetRequest from "@/models/AssetRequest";
 
 type RequestDetailPageProps = {
@@ -40,7 +41,7 @@ export default async function RequestDetailPage({ params }: RequestDetailPagePro
             title: request.title,
             description: request.description,
             referenceImageUrl: request.referenceImageUrl ?? "",
-            status: request.status,
+            status: normalizeRequestStatus(String(request.status)),
           }}
         />
       </AppShell>

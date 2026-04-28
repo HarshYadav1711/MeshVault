@@ -27,5 +27,5 @@ export const assetRequestSchema = z.object({
     .url("Reference image URL is invalid")
     .optional()
     .or(z.literal("")),
-  status: z.enum(["open", "in_progress", "done"]).optional(),
+  status: z.enum(["pending", "in_progress", "completed"]).optional(),
 });
