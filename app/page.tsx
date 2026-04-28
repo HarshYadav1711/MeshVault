@@ -44,9 +44,8 @@ export default function Home() {
         <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
           <h3 className="text-xl font-semibold tracking-tight text-slate-900">Simple workflow</h3>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-            Submit a request, enrich requirements, and move it through status checkpoints. The
-            foundation is ready to plug in secure auth, API handlers, and database-backed request
-            tracking next.
+            Submit a request, enrich requirements, and move it through clear status checkpoints:
+            Pending, In Progress, and Completed.
           </p>
         </div>
       </section>

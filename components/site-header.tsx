@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const navItems = [
-  { href: "#features", label: "Features" },
-  { href: "#workflow", label: "Workflow" },
-  { href: "#security", label: "Security" },
+  { href: "/#features", label: "Features" },
+  { href: "/#workflow", label: "Workflow" },
+  { href: "/#security", label: "Security" },
 ];
 
 export default function SiteHeader() {
