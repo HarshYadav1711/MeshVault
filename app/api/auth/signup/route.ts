@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
 import { connectToDatabase } from "@/lib/db";
+import { getApiErrorMessage } from "@/lib/error-message";
 import { apiError, firstZodError } from "@/lib/http";
 import { createSessionToken, setSessionCookie } from "@/lib/session";
 import { signupSchema } from "@/lib/validation";
@@ -47,7 +48,9 @@ export async function POST(request: Request) {
       },
       { status: 201 },
     );
-  } catch {
-    return apiError("Unable to create account", 500);
+  } catch (error) {
+    const message = getApiErrorMessage(error, "Unable to create account");
+    const status = message === "An account with this email already exists" ? 409 : 500;
+    return apiError(message, status);
   }
 }

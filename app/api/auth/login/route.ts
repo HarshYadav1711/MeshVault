@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
 import { connectToDatabase } from "@/lib/db";
+import { getApiErrorMessage } from "@/lib/error-message";
 import { apiError, firstZodError } from "@/lib/http";
 import { createSessionToken, setSessionCookie } from "@/lib/session";
 import { loginSchema } from "@/lib/validation";
@@ -40,7 +41,7 @@ export async function POST(request: Request) {
         email: user.email,
       },
     });
-  } catch {
-    return apiError("Unable to sign in", 500);
+  } catch (error) {
+    return apiError(getApiErrorMessage(error, "Unable to sign in"), 500);
   }
 }

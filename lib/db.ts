@@ -25,9 +25,16 @@ export async function connectToDatabase() {
     cache.promise = mongoose.connect(env.MONGODB_URI, {
       dbName: "meshvault",
       bufferCommands: false,
+      serverSelectionTimeoutMS: 20000,
+      family: 4,
     });
   }
 
-  cache.conn = await cache.promise;
-  return cache.conn;
+  try {
+    cache.conn = await cache.promise;
+    return cache.conn;
+  } catch (error) {
+    cache.promise = null;
+    throw error;
+  }
 }
