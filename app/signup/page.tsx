@@ -1,15 +1,17 @@
-import AuthCard from "@/components/auth-card";
+import { redirect } from "next/navigation";
 
-export default function SignupPage() {
+import AuthForm from "@/components/auth-form";
+import { getSessionFromCookies } from "@/lib/session";
+
+export default async function SignupPage() {
+  const session = await getSessionFromCookies();
+  if (session) {
+    redirect("/dashboard");
+  }
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md items-center px-4 py-12">
-      <AuthCard
-        title="Create account"
-        description="Set up your MeshVault access for internal request operations."
-        primaryLabel="Create Account"
-        secondaryHref="/login"
-        secondaryLabel="Already have access? Open login"
-      />
+      <AuthForm mode="signup" />
     </main>
   );
 }

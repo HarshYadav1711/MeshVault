@@ -1,41 +1,49 @@
 # MeshVault
 
-MeshVault is a polished product foundation for an internal 3D asset request platform.
+MeshVault is a full-stack app for managing internal 3D asset requests.
 
 ## Stack
 
 - Next.js App Router + TypeScript
 - Tailwind CSS
-- ESLint
+- MongoDB Atlas + Mongoose
+- bcrypt password hashing
+- JWT session in signed `httpOnly` cookie
+- Zod validation
 
-## What is implemented now
+## Features
 
-- Clean global layout with shared header and footer
-- Polished, startup-style landing page with clear messaging and CTA
-- Route scaffolding for:
-  - `/signup`
-  - `/login`
-  - `/dashboard`
-  - `/requests/new`
-  - `/requests/[id]`
-- Professional structure for:
-  - `components/`
-  - `lib/`
-  - `models/`
-  - `app/api/*` route handlers
-- API handlers are intentionally scaffolded only (return `501 Not Implemented`)
+- Signup, login, logout, and current user detection
+- Duplicate email and invalid credential handling
+- Protected routes for `/dashboard` and `/requests/*`
+- User-scoped request CRUD
+- Clean API error responses
 
-## Current status
+## Environment Variables
 
-- No backend logic is implemented yet.
-- No authentication, database connection, or persistence is wired yet.
-- This phase focuses only on production-ready frontend foundation and architecture.
+Copy `.env.example` to `.env.local` and set values:
 
-## Run Locally
+```bash
+cp .env.example .env.local
+```
+
+- `MONGODB_URI`
+- `JWT_SECRET` (32+ characters)
+
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+## API Routes
+
+- `POST /api/auth/signup`
+- `POST /api/auth/login`
+- `POST /api/auth/logout`
+- `GET /api/auth/me`
+- `GET /api/requests`
+- `POST /api/requests`
+- `PATCH /api/requests/:id`
+- `DELETE /api/requests/:id`

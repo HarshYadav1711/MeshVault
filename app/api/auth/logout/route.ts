@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
-export async function POST() {
-  return NextResponse.json(
-    { message: "Auth logout handler scaffolded. Backend logic not implemented yet." },
-    { status: 501 },
-  );
+import { clearSessionCookie } from "@/lib/session";
+
+export async function POST(request: Request) {
+  await clearSessionCookie();
+  return NextResponse.redirect(new URL("/login", request.url));
 }
